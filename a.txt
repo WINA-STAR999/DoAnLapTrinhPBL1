@@ -5,4 +5,4 @@ BB004|Cloud Computing Security|ACM Journal|ISI|5|2|2022|ACM|Pham Thi D
 BB005|IoT in Smart Cities|Springer Open|SCOPUS|6|1|2023|Springer|Hoang Van E
 BB006|Machine Learning Applications|Nature Machine Intelligence|SCI|2|3|2025|Nature|Do Thi F
 BB007|Blockchain in Finance|IEEE Transactions|SCIE|4|2|2021|IEEE|Vo Van G
-BB007|Computer Vision Advances|Elsevier AI Review|ISI|7|1|2024|Elsevier|Bui Thi H
+BB008|Computer Vision Advances|Elsevier AI Review|ISI|7|1|2024|Elsevier|Bui Thi H
