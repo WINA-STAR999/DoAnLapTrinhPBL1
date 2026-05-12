@@ -1,3 +1,0 @@
-BB001|Machine Learning Applications|ScienceDirect|SCI|2|1|2022|Elsevier|Le Hoang C
-BB009|Blockchain Security Systems|ACM Computing Surveys|SCOPUS|4|2|2021|ACM|Pham Minh D
-BB009|Deep Learning in Healthcare|Nature Medicine|SCI|1|3|2024|Springer|Vo Thi E
