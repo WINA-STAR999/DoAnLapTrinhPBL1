@@ -1,0 +1,4 @@
+BB001|AI in Smart Healthcare Systems|Nature Medicine|SCI|2|3|2024|Springer|Le Thi M
+BB009|Natural Language Processing Trends|ACL Journal|SCI|3|2|2025|ACL|Nguyen Thi I
+BB010|Cybersecurity Threat Analysis|Elsevier Security|SCIE|4|1|2024|Elsevier|Tran Van K
+BB011|Edge Computing and 5G Networks|IEEE Communications|SCOPUS|5|2|2025|IEEE|Pham Van N

@@ -1,0 +1,8 @@
+BB001|AI in Education|Nature|SCI|1|2|2024|Springer|Nguyen Van A
+BB002|Data Mining|IEEE Access|SCOPUS|3|1|2023|IEEE|Tran Thi B
+BB003|Deep Learning Health|ScienceDirect|SCIE|2|4|2024|Elsevier|Le Van C
+BB004|Cloud Security|ACM Journal|ISI|5|2|2022|ACM|Pham Thi D
+BB005|Smart City IoT|Springer Open|SCOPUS|6|1|2023|Springer|Hoang Van E
+BB006|ML Applications|Nature Mach|SCI|2|3|2025|Nature|Do Thi F
+BB007|Blockchain Finance|IEEE Transactions|SCIE|4|2|2021|IEEE|Vo Van G
+BB008|Vision Advances|Elsevier AI Review|ISI|7|1|2024|Elsevier|Bui Thi H
