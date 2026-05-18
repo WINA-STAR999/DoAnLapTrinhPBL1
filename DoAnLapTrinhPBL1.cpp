@@ -158,7 +158,6 @@ BaiBao nhapMotBaiBao(Node *head) {
     x.soXuatBan = nhapSo("Nhap so xuat ban: ");
     x.tapXuatBan = nhapSo("Nhap tap xuat ban: ");
     x.namXuatBan = nhapSo("Nhap nam xuat ban: ");
-    getchar();
     nhapChuoi("Nhap nha xuat ban: ", x.nhaXuatBan, sizeof(x.nhaXuatBan));
     nhapChuoi("Nhap tac gia: ", x.tacGia, sizeof(x.tacGia));
     return x;
