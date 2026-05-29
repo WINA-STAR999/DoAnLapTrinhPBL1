@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-
+#include <conio.h>
 typedef struct {
     char ma[50];
     char ten[256];
@@ -103,7 +103,8 @@ void inMotBaiBao(BaiBao x) {
 
 void xuatDanhSach(Node *head) {
     if (head == NULL) {
-        printf("\nDanh sach rong\n");
+        printf("\nDanh sach rong!\n");
+        getch();
         return;
     }
     inTieuDe();
@@ -111,6 +112,7 @@ void xuatDanhSach(Node *head) {
         inMotBaiBao(head->data);
         head = head->next;
     }
+    getch();
 }
 
 int nhapSo(const char *prompt) {
@@ -148,7 +150,7 @@ BaiBao nhapMotBaiBao(Node *head) {
             continue;
         }
         if (timTheoMa(head, x.ma) != NULL) {
-            printf("Ma bai bao da ton tai\n");
+            printf("Ma bai bao da ton tai!\n");
         } else break;
     }
     nhapChuoi("Nhap ten bai bao: ", x.ten, sizeof(x.ten));
@@ -166,7 +168,8 @@ BaiBao nhapMotBaiBao(Node *head) {
 void themBaiBao(Node **head) {
     BaiBao x = nhapMotBaiBao(*head);
     themCuoi(head, x);
-    printf("Them thanh cong\n");
+    printf("Them thanh cong!\n");
+    getch();
 }
 
 int xoaTheoMa(Node **head, char ma[]) {
@@ -187,8 +190,9 @@ int xoaTheoMa(Node **head, char ma[]) {
 void menuXoa(Node **head) {
     char ma[50];
     nhapChuoi("Nhap ma bai bao can xoa: ", ma, sizeof(ma));
-    if (xoaTheoMa(head, ma)) printf("Xoa thanh cong\n");
-    else printf("Khong tim thay ma bai bao\n");
+    if (xoaTheoMa(head, ma)) printf("Xoa thanh cong!\n");
+    else printf("Khong tim thay ma bai bao!\n");
+    getch();
 }
 
 void timTheoTen(Node *head, char ten[]) {
@@ -201,83 +205,97 @@ void timTheoTen(Node *head, char ten[]) {
         }
         head = head->next;
     }
-    if (!ok) printf("Khong tim thay bai bao\n");
+    if (!ok) printf("Khong tim thay bai bao!\n");
+    getch();
 }
 
+void menu_ChonMucSua(){
+    printf("\n========== SUA THONG TIN BAI BAO ==========\n");
+    printf("\nChon muc can sua:\n");
+    printf("1. Ten bai bao\n");
+    printf("2. Ten tap chi\n");
+    printf("3. Loai tap chi\n");
+    printf("4. So xuat ban\n");
+    printf("5. Tap xuat ban\n");
+    printf("6. Nam xuat ban\n");
+    printf("7. Nha xuat ban\n");
+    printf("8. Tac gia\n");
+    printf("0. Thoat sua\n");
+    printf("Nhap lua chon: ");
+}
 
 void suaThongTin(Node *head) {
     char ma[50];
     nhapChuoi("Nhap ma bai bao can sua: ", ma, sizeof(ma));
     Node *p = timTheoMa(head, ma);
     if (p == NULL) {
-        printf("Khong tim thay bai bao\n");
+        printf("Khong tim thay bai bao!\n");
+        getch();
         return;
     }
-
     int chon;
     do {
         printf("\nThong tin hien tai:\n");
         inTieuDe();
         inMotBaiBao(p->data);
+        do {
+            chon = nhapLuaChon(menu_ChonMucSua);
+            if (chon < 0 || chon > 8) {
+                printf("Lua chon khong hop le!\n");
+            }
+        } while (chon < 0 || chon > 8);
+        switch (chon) {
+            case 1:
+                nhapChuoi("Nhap ten bai bao moi: ", p->data.ten, sizeof(p->data.ten));
+                printf("Sua thanh cong\n");
+                break;
 
-        printf("\n===== CHON MUC CAN SUA =====\n");
-        printf("1. Ten bai bao\n");
-        printf("2. Ten tap chi\n");
-        printf("3. Loai tap chi\n");
-        printf("4. So xuat ban\n");
-        printf("5. Tap xuat ban\n");
-        printf("6. Nam xuat ban\n");
-        printf("7. Nha xuat ban\n");
-        printf("8. Tac gia\n");
-        printf("0. Thoat sua\n");
-        printf("Nhap lua chon: ");
-        scanf("%d", &chon);
-        getchar();
+            case 2:
+                nhapChuoi("Nhap ten tap chi moi: ", p->data.tapChi, sizeof(p->data.tapChi));
+                printf("Sua thanh cong\n");
+                break;
 
-        if (chon == 1) {
-            nhapChuoi("Nhap ten bai bao moi: ", p->data.ten, sizeof(p->data.ten));
-            printf("Sua thanh cong\n");
-        }
-        else if (chon == 2) {
-            nhapChuoi("Nhap ten tap chi moi: ", p->data.tapChi, sizeof(p->data.tapChi));
-            printf("Sua thanh cong\n");
-        }
-        else if (chon == 3) {
-            nhapChuoi("Nhap loai tap chi moi: ", p->data.loai, sizeof(p->data.loai));
-            vietHoaChuoi(p->data.loai);
-            printf("Sua thanh cong\n");
-        }
-        else if (chon == 4) {
-            printf("Nhap so xuat ban moi: ");
-            scanf("%d", &p->data.soXuatBan);
-            getchar();
-            printf("Sua thanh cong\n");
-        }
-        else if (chon == 5) {
-            printf("Nhap tap xuat ban moi: ");
-            scanf("%d", &p->data.tapXuatBan);
-            getchar();
-            printf("Sua thanh cong\n");
-        }
-        else if (chon == 6) {
-            printf("Nhap nam xuat ban moi: ");
-            scanf("%d", &p->data.namXuatBan);
-            getchar();
-            printf("Sua thanh cong\n");
-        }
-        else if (chon == 7) {
-            nhapChuoi("Nhap nha xuat ban moi: ", p->data.nhaXuatBan, sizeof(p->data.nhaXuatBan));
-            printf("Sua thanh cong\n");
-        }
-        else if (chon == 8) {
-            nhapChuoi("Nhap tac gia moi: ", p->data.tacGia, sizeof(p->data.tacGia));
-            printf("Sua thanh cong\n");
-        }
-        else if (chon == 0) {
-            printf("Da thoat sua\n");
-        }
-        else {
-            printf("Lua chon khong hop le\n");
+            case 3:
+                nhapChuoi("Nhap loai tap chi moi: ", p->data.loai, sizeof(p->data.loai));
+                
+                // ===== ĐÃ THÊM =====
+                vietHoaChuoi(p->data.loai);
+                // ===================
+                
+                printf("Sua thanh cong\n");
+                break;
+
+            case 4:
+                p->data.soXuatBan = nhapSo("Nhap so xuat ban moi: ");
+                printf("Sua thanh cong!\n");
+                break;
+
+            case 5:
+                p->data.tapXuatBan = nhapSo("Nhap tap xuat ban moi: ");
+                printf("Sua thanh cong!\n");
+                break;
+
+            case 6:
+                p->data.namXuatBan = nhapSo("Nhap nam xuat ban moi: ");
+                printf("Sua thanh cong\n");
+                break;
+
+            case 7:
+                nhapChuoi("Nhap nha xuat ban moi: ", p->data.nhaXuatBan, sizeof(p->data.nhaXuatBan));
+                printf("Sua thanh cong!\n");
+                break;
+
+            case 8:
+                nhapChuoi("Nhap tac gia moi: ", p->data.tacGia, sizeof(p->data.tacGia));
+                printf("Sua thanh cong!\n");
+                break;
+
+            case 0:
+                printf("Da thoat sua!\n");
+                break;
+
+            default:
+                printf("Lua chon khong hop le!\n");
         }
     } while (chon != 0);
 }
@@ -356,6 +374,7 @@ void thongKeTheoNam(Node *head) {
 }
 
 void menu_ThongKe(){
+    printf("\n========== THONG KE BAI BAO ==========\n");
     printf("1.Thong ke theo loai\n");
     printf("2.Thong ke theo nam\n");
     printf("0.Thoat\n");
@@ -364,6 +383,7 @@ void menu_ThongKe(){
 void Thongke(Node *head){
     if (head == NULL) {
         printf("Danh sach rong\n");
+        getch();
         return;
     }
     int choice;
@@ -378,9 +398,11 @@ void Thongke(Node *head){
         switch (choice){
             case 1:
                 thongKeTheoLoai(head);
+                getch();
                 break;
             case 2:
                 thongKeTheoNam(head);
+                getch();
                 break;
             case 0:
             printf("Da thoat thanh cong!\n");
@@ -479,6 +501,7 @@ void nhapTuFile(Node **head) {
     FILE *f = fopen(tenFile, "r");
     if (f == NULL) {
         printf("Khong mo duoc file\n");
+        getch();
         return;
     }
     char line[2000];
@@ -500,6 +523,7 @@ void nhapTuFile(Node **head) {
     }
     fclose(f);
     printf("Da them %d bai bao, trung ma %d, dong loi %d\n", them, trung, loi);
+	getch();
 }
 
 void xuatRaFile(Node *head) {
@@ -508,6 +532,7 @@ void xuatRaFile(Node *head) {
     FILE *f = fopen(tenFile, "w");
     if (f == NULL) {
         printf("Khong tao duoc file\n");
+        getch();
         return;
     }
     while (head != NULL) {
@@ -525,6 +550,7 @@ void xuatRaFile(Node *head) {
     }
     fclose(f);
     printf("Xuat file thanh cong\n");
+    getch();
 }
 
 void hoanViDuLieu(BaiBao *a, BaiBao *b) {
@@ -564,6 +590,7 @@ void menu_SapXep(){
 void menuSapXep(Node *head) {
     if (head == NULL) {
         printf("Danh sach rong\n");
+        getch();
         return;
     }
     int chon;
@@ -576,8 +603,14 @@ void menuSapXep(Node *head) {
             }
         }
         while (chon < 0 || chon > 2);
-        if (chon == 1) sapXepTheoNam(head);
-        else if (chon == 2) sapXepTheoTen(head);
+        if (chon == 1) {
+			sapXepTheoNam(head);
+			getch();
+		}
+        else if (chon == 2) {
+			sapXepTheoTen(head);
+			getch();
+		}
         else if (chon == 0){
             printf("Da thoat thanh cong!");
             break;
@@ -625,6 +658,7 @@ void timTheoNam(Node *head, int nam) {
 }
 
 void menu_TimKiem(){
+    printf("\n========== TIM KIEM BAI BAO ==========\n");
     printf("\n1. Tim theo ma\n");
     printf("2. Tim theo ten\n");
     printf("3. Tim theo nam xuat ban\n");
@@ -648,33 +682,39 @@ void menuTimKiem(Node *head) {
             char ma[50];
             nhapChuoi("Nhap ma bai bao: ", ma, sizeof(ma));
             Node *p = timTheoMa(head, ma);
-            if (p == NULL) printf("Khong tim thay bai bao\n");
+            if (p == NULL) {
+                printf("Khong tim thay bai bao\n");
+                getch();
+            }
             else {
                 inTieuDe();
                 inMotBaiBao(p->data);
+                getch();
             }
         }
         else if (chon == 2) {
             char ten[256];
             nhapChuoi("Nhap ten bai bao can tim: ", ten, sizeof(ten));
             timTheoTen(head, ten);
+            getch();
         }
         else if (chon == 3) {
             int nam;
-            printf("Nhap nam xuat ban can tim: ");
-            scanf("%d", &nam);
-            getchar();
+            nam = nhapSo("Nhap nam xuat ban can tim: ");
             timTheoNam(head, nam);
+            getch();
         }
         else if (chon == 4) {
             char nhaXuatBan[256];
             nhapChuoi("Nhap nha xuat ban can tim: ", nhaXuatBan, sizeof(nhaXuatBan));
             timTheoNhaXuatBan(head, nhaXuatBan);
+            getch();
         }
         else if (chon == 5) {
             char tacGia[256];
             nhapChuoi("Nhap tac gia can tim: ", tacGia, sizeof(tacGia));
             timTheoTacGia(head, tacGia);
+            getch();
         }
         else if (chon == 0){
             printf("Da thoat thanh cong!");
@@ -694,7 +734,6 @@ void menu() {
     printf("7.  Thong ke bai bao\n");
     printf("8.  Xuat du lieu ra file\n");
     printf("9.  Sap xep bai bao\n");
-    printf("10. Giai phong du lieu\n");
     printf("0.  Thoat\n");
     printf("Nhap lua chon: ");
 } 
