@@ -438,7 +438,42 @@ int tachDongThanhBaiBao(char *line, BaiBao *x) {
     return 1;
 }
 
+void giaiPhong(Node **head) {
+    Node *p;
+    while (*head != NULL) {
+        p = *head;
+        *head = (*head)->next;
+        free(p);
+    }
+}
+
+void menu_GiaiPhong(){
+	printf("Danh sach hien dang co du lieu!\n");
+	printf("Xoa du lieu cu truoc khi them file moi?\n");
+	printf("1.Co\n");
+	printf("2.Khong\n");
+	printf("0.Thoat\n");
+	printf("Nhap lua chon: ");
+}
 void nhapTuFile(Node **head) {
+	if (*head != NULL){
+		int choice;
+		do{
+		    choice = nhapLuaChon(menu_GiaiPhong);
+		    if (choice < 0 || choice > 2) {
+		        printf("Lua chon khong hop le!\n");
+		    }
+		} while (choice < 0 || choice > 2);
+		switch (choice){
+		    case 1:
+		        giaiPhong(head);
+		        break;
+		    case 2:
+		        break;
+		    case 0:
+		        return;
+		    }
+	}
     char tenFile[256];
     nhapChuoi("Nhap ten file: ", tenFile, sizeof(tenFile));
     FILE *f = fopen(tenFile, "r");
@@ -547,15 +582,6 @@ void menuSapXep(Node *head) {
             printf("Da thoat thanh cong!");
             break;
         };
-    }
-}
-
-void giaiPhong(Node **head) {
-    Node *p;
-    while (*head != NULL) {
-        p = *head;
-        *head = (*head)->next;
-        free(p);
     }
 }
 
@@ -736,10 +762,6 @@ int main() {
             break;
         case 9:
             menuSapXep(head);
-            break;
-        case 10:
-            giaiPhong(&head);
-            printf("Giai phong du lieu thanh cong!");
             break;
         case 0:
             printf("Da thoat chuong trinh!\n");
