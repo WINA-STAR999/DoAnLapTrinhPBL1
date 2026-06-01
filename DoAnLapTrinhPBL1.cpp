@@ -3,6 +3,15 @@
 #include <string.h>
 #include <ctype.h>
 #include <conio.h>
+#include <windows.h>
+
+#define RED     "\033[1;31m"
+#define GREEN   "\033[1;32m"
+#define YELLOW  "\033[1;33m"
+#define BLUE    "\033[1;34m"
+#define PURPLE  "\033[1;35m"
+#define CYAN    "\033[1;36m"
+#define RESET   "\033[0m"
 typedef struct {
     char ma[50];
     char ten[256];
@@ -45,7 +54,7 @@ void vietHoaChuoi(char *s) {
 }
 
 void nhapChuoi(const char *msg, char *s, int size) {
-    printf("%s", msg);
+    printf(BLUE "%s" RESET, msg);
     fgets(s, size, stdin);
     xoaXuongDong(s);
     chuanHoaChuoi(s);
@@ -92,21 +101,21 @@ int demSoLuong(Node *head) {
 }
 
 void inTieuDe() {
-    printf("\n%-12s %-25s %-20s %-12s %-10s %-10s %-10s %-20s %-25s\n",
-           "Ma", "Ten bai bao", "Ten tap chi", "Loai", "So", "Tap", "Nam", "Nha xuat ban", "Tac gia");
+    printf(PURPLE "Ma        Ten bai bao            Ten tap chi         Loai       So   Tap  Nam   Nha xuat ban       Tac gia\n" RESET);
 }
 
 void inMotBaiBao(BaiBao x) {
-    printf("%-12s %-25s %-20s %-12s %-10d %-10d %-10d %-20s %-25s\n",
+    printf(PURPLE "%-9s %-28s %-19s %-10s %-3d %-3d %-4d %-17s %-15s" RESET "\n",
            x.ma, x.ten, x.tapChi, x.loai, x.soXuatBan, x.tapXuatBan, x.namXuatBan, x.nhaXuatBan, x.tacGia);
 }
 
 void xuatDanhSach(Node *head) {
     if (head == NULL) {
-        printf("\nDanh sach rong!\n");
+        printf(YELLOW "Danh sach rong!\n" RESET);
         getch();
         return;
     }
+    printf(PURPLE "\nDanh sach bai bao:\n" RESET);
     inTieuDe();
     while (head != NULL) {
         inMotBaiBao(head->data);
@@ -120,7 +129,7 @@ int nhapSo(const char *prompt) {
     int number;
 
     while (1) {
-        printf("%s", prompt);
+        printf(BLUE "%s" RESET, prompt);
         fgets(input, sizeof(input), stdin);
         input[strcspn(input, "\n")] = '\0';
 
@@ -136,7 +145,7 @@ int nhapSo(const char *prompt) {
             number = atoi(input);
             return number;
         } else {
-            printf("Loi: Ban phai nhap mot so hop le!\n");
+            printf(RED "Loi: Ban phai nhap mot so hop le!\n" RESET);
         }
     }
 }
@@ -146,11 +155,11 @@ BaiBao nhapMotBaiBao(Node *head) {
     while (1) {
         nhapChuoi("Nhap ma bai bao: ", x.ma, sizeof(x.ma));
         if (strlen(x.ma) == 0) {
-            printf("Ma khong hop le\n");
+            printf(RED "Ma khong hop le\n" RESET);
             continue;
         }
         if (timTheoMa(head, x.ma) != NULL) {
-            printf("Ma bai bao da ton tai!\n");
+            printf(RED "Ma bai bao da ton tai!\n" RESET);
         } else break;
     }
     nhapChuoi("Nhap ten bai bao: ", x.ten, sizeof(x.ten));
@@ -168,7 +177,7 @@ BaiBao nhapMotBaiBao(Node *head) {
 void themBaiBao(Node **head) {
     BaiBao x = nhapMotBaiBao(*head);
     themCuoi(head, x);
-    printf("Them thanh cong!\n");
+    printf(GREEN "Them thanh cong!\n" RESET);
     getch();
 }
 
@@ -190,8 +199,8 @@ int xoaTheoMa(Node **head, char ma[]) {
 void menuXoa(Node **head) {
     char ma[50];
     nhapChuoi("Nhap ma bai bao can xoa: ", ma, sizeof(ma));
-    if (xoaTheoMa(head, ma)) printf("Xoa thanh cong!\n");
-    else printf("Khong tim thay ma bai bao!\n");
+    if (xoaTheoMa(head, ma)) printf(GREEN "Xoa thanh cong!\n" RESET);
+    else printf(RED "Khong tim thay ma bai bao!\n" RESET);
     getch();
 }
 
@@ -205,23 +214,27 @@ void timTheoTen(Node *head, char ten[]) {
         }
         head = head->next;
     }
-    if (!ok) printf("Khong tim thay bai bao!\n");
+    if (!ok) printf(RED "Khong tim thay bai bao!\n" RESET);
     getch();
 }
 
 void menu_ChonMucSua(){
-    printf("\n========== SUA THONG TIN BAI BAO ==========\n");
-    printf("\nChon muc can sua:\n");
-    printf("1. Ten bai bao\n");
-    printf("2. Ten tap chi\n");
-    printf("3. Loai tap chi\n");
-    printf("4. So xuat ban\n");
-    printf("5. Tap xuat ban\n");
-    printf("6. Nam xuat ban\n");
-    printf("7. Nha xuat ban\n");
-    printf("8. Tac gia\n");
-    printf("0. Thoat sua\n");
-    printf("Nhap lua chon: ");
+    printf(CYAN
+"╔════════════════════════════════════════════════════════════╗\n"
+"║                    SUA THONG TIN BAI BAO                   ║\n"
+"╠════════════════════════════════════════════════════════════╣\n"
+"║ 1. Ten bai bao                                             ║\n"
+"║ 2. Ten tap chi                                             ║\n"
+"║ 3. Loai tap chi                                            ║\n"
+"║ 4. So xuat ban                                             ║\n"
+"║ 5. Tap xuat ban                                            ║\n"
+"║ 6. Nam xuat ban                                            ║\n"
+"║ 7. Nha xuat ban                                            ║\n"
+"║ 8. Tac gia                                                 ║\n"
+"║ 0. Thoat                                                   ║\n"
+"╚════════════════════════════════════════════════════════════╝\n"
+RESET);
+    printf(BLUE "Nhap lua chon: " RESET);
 }
 
 void suaThongTin(Node *head) {
@@ -229,73 +242,71 @@ void suaThongTin(Node *head) {
     nhapChuoi("Nhap ma bai bao can sua: ", ma, sizeof(ma));
     Node *p = timTheoMa(head, ma);
     if (p == NULL) {
-        printf("Khong tim thay bai bao!\n");
+        printf(RED "Khong tim thay bai bao!\n" RESET);
         getch();
         return;
     }
     int chon;
     do {
-        printf("\nThong tin hien tai:\n");
+        printf(PURPLE "\nThong tin hien tai:\n" RESET);
         inTieuDe();
         inMotBaiBao(p->data);
         do {
             chon = nhapLuaChon(menu_ChonMucSua);
             if (chon < 0 || chon > 8) {
-                printf("Lua chon khong hop le!\n");
+                printf(RED "Lua chon khong hop le!\n" RESET);
             }
         } while (chon < 0 || chon > 8);
         switch (chon) {
             case 1:
                 nhapChuoi("Nhap ten bai bao moi: ", p->data.ten, sizeof(p->data.ten));
-                printf("Sua thanh cong\n");
+                printf(GREEN "Sua thanh cong\n" RESET);
                 break;
 
             case 2:
                 nhapChuoi("Nhap ten tap chi moi: ", p->data.tapChi, sizeof(p->data.tapChi));
-                printf("Sua thanh cong\n");
+                printf(GREEN "Sua thanh cong\n" RESET);
                 break;
 
             case 3:
                 nhapChuoi("Nhap loai tap chi moi: ", p->data.loai, sizeof(p->data.loai));
                 
-                // ===== ĐÃ THÊM =====
                 vietHoaChuoi(p->data.loai);
-                // ===================
                 
-                printf("Sua thanh cong\n");
+                printf(GREEN "Sua thanh cong\n" RESET);
                 break;
 
             case 4:
                 p->data.soXuatBan = nhapSo("Nhap so xuat ban moi: ");
-                printf("Sua thanh cong!\n");
+                printf(GREEN "Sua thanh cong!\n" RESET);
                 break;
 
             case 5:
                 p->data.tapXuatBan = nhapSo("Nhap tap xuat ban moi: ");
-                printf("Sua thanh cong!\n");
+                printf(GREEN "Sua thanh cong!\n" RESET);
                 break;
 
             case 6:
                 p->data.namXuatBan = nhapSo("Nhap nam xuat ban moi: ");
-                printf("Sua thanh cong\n");
+                printf(GREEN "Sua thanh cong\n" RESET);
                 break;
 
             case 7:
                 nhapChuoi("Nhap nha xuat ban moi: ", p->data.nhaXuatBan, sizeof(p->data.nhaXuatBan));
-                printf("Sua thanh cong!\n");
+                printf(GREEN "Sua thanh cong!\n" RESET);
                 break;
 
             case 8:
                 nhapChuoi("Nhap tac gia moi: ", p->data.tacGia, sizeof(p->data.tacGia));
-                printf("Sua thanh cong!\n");
+                printf(GREEN "Sua thanh cong!\n" RESET);
                 break;
 
             case 0:
-                printf("Da thoat sua!\n");
+                printf(CYAN "Da thoat sua!\n" RESET);
                 break;
 
             default:
-                printf("Lua chon khong hop le!\n");
+                printf(RED "Lua chon khong hop le!\n" RESET);
         }
     } while (chon != 0);
 }
@@ -330,10 +341,10 @@ void thongKeTheoLoai(Node *head) {
         }
         head = head->next;
     }
-    printf("\nThong ke theo loai bai bao:\n");
-    printf("%-15s   %-15s\n", "Loai", "So Luong");
+    printf(PURPLE "\nThong ke theo loai bai bao:\n" RESET);
+    printf(PURPLE "Loai               So Luong\n" RESET);
     for (int i = 0; i < n; i++) {
-        printf("%-15s   %d\n", ds[i].key, ds[i].count);
+        printf(PURPLE "%-18s %d\n" RESET, ds[i].key, ds[i].count);
     }
 }
 
@@ -366,23 +377,28 @@ void thongKeTheoNam(Node *head) {
             }
         }
     }
-    printf("\nThong ke theo nam xuat ban:\n");
-    printf("%-15s   %-15s\n", "Nam", "So Luong");
+    printf(PURPLE "\nThong ke theo nam xuat ban:\n" RESET);
+    printf(PURPLE "Nam              So Luong\n" RESET);
     for (int i = 0; i < n; i++) {
-        printf("%-15d   %-15d\n", ds[i].key, ds[i].count);
+        printf(PURPLE "%-16d %-15d\n" RESET, ds[i].key, ds[i].count);
     }
 }
 
 void menu_ThongKe(){
-    printf("\n========== THONG KE BAI BAO ==========\n");
-    printf("1.Thong ke theo loai\n");
-    printf("2.Thong ke theo nam\n");
-    printf("0.Thoat\n");
-    printf("Nhap lua chon: ");
+    printf(CYAN
+"╔════════════════════════════════════════════════════════════╗\n"
+"║                   THONG KE BAI BAO                         ║\n"
+"╠════════════════════════════════════════════════════════════╣\n"
+"║ 1. Thong ke theo loai                                      ║\n"
+"║ 2. Thong ke theo nam                                       ║\n"
+"║ 0. Thoat                                                   ║\n"
+"╚════════════════════════════════════════════════════════════╝\n"
+RESET);
+    printf(BLUE "Nhap lua chon: " RESET);
 }
 void Thongke(Node *head){
     if (head == NULL) {
-        printf("Danh sach rong\n");
+        printf(YELLOW "Danh sach rong\n" RESET);
         getch();
         return;
     }
@@ -391,7 +407,7 @@ void Thongke(Node *head){
         do{
             choice = nhapLuaChon(menu_ThongKe);
             if (choice < 0 || choice > 2) {
-                printf("Lua chon khong hop le!\n");
+                printf(RED "Lua chon khong hop le!\n" RESET);
             }
         }
         while (choice < 0 || choice > 2);
@@ -405,7 +421,7 @@ void Thongke(Node *head){
                 getch();
                 break;
             case 0:
-            printf("Da thoat thanh cong!\n");
+            printf(CYAN "Da thoat thanh cong!\n" RESET);
                 break;
         }
     } while(choice != 0);
@@ -470,12 +486,17 @@ void giaiPhong(Node **head) {
 }
 
 void menu_GiaiPhong(){
-	printf("Danh sach hien dang co du lieu!\n");
-	printf("Xoa du lieu cu truoc khi them file moi?\n");
-	printf("1.Co\n");
-	printf("2.Khong\n");
-	printf("0.Thoat\n");
-	printf("Nhap lua chon: ");
+	printf(CYAN
+"╔════════════════════════════════════════════════════════════╗\n"
+"║          Danh sach hien dang co du lieu!                   ║\n"
+"║    Xoa du lieu cu truoc khi them file moi?                 ║\n"
+"╠════════════════════════════════════════════════════════════╣\n"
+"║ 1. Co                                                      ║\n"
+"║ 2. Khong                                                   ║\n"
+"║ 0. Thoat                                                   ║\n"
+"╚════════════════════════════════════════════════════════════╝\n"
+RESET);
+	printf(BLUE "Nhap lua chon: " RESET);
 }
 void nhapTuFile(Node **head) {
 	if (*head != NULL){
@@ -483,7 +504,7 @@ void nhapTuFile(Node **head) {
 		do{
 		    choice = nhapLuaChon(menu_GiaiPhong);
 		    if (choice < 0 || choice > 2) {
-		        printf("Lua chon khong hop le!\n");
+		        printf(RED "Lua chon khong hop le!\n" RESET);
 		    }
 		} while (choice < 0 || choice > 2);
 		switch (choice){
@@ -500,7 +521,7 @@ void nhapTuFile(Node **head) {
     nhapChuoi("Nhap ten file: ", tenFile, sizeof(tenFile));
     FILE *f = fopen(tenFile, "r");
     if (f == NULL) {
-        printf("Khong mo duoc file\n");
+        printf(RED "Khong mo duoc file\n" RESET);
         getch();
         return;
     }
@@ -522,7 +543,7 @@ void nhapTuFile(Node **head) {
         them++;
     }
     fclose(f);
-    printf("Da them %d bai bao, trung ma %d, dong loi %d\n", them, trung, loi);
+    printf(GREEN "Da them %d bai bao, trung ma %d, dong loi %d\n" RESET, them, trung, loi);
 	getch();
 }
 
@@ -531,7 +552,7 @@ void xuatRaFile(Node *head) {
     nhapChuoi("Nhap ten file can xuat: ", tenFile, sizeof(tenFile));
     FILE *f = fopen(tenFile, "w");
     if (f == NULL) {
-        printf("Khong tao duoc file\n");
+        printf(RED "Khong tao duoc file\n" RESET);
         getch();
         return;
     }
@@ -549,7 +570,7 @@ void xuatRaFile(Node *head) {
         head = head->next;
     }
     fclose(f);
-    printf("Xuat file thanh cong\n");
+    printf(GREEN "Xuat file thanh cong\n" RESET);
     getch();
 }
 
@@ -567,7 +588,7 @@ void sapXepTheoNam(Node *head) {
             }
         }
     }
-    printf("Sap xep theo nam thanh cong\n");
+    printf(GREEN "Sap xep theo nam thanh cong\n" RESET);
 }
 
 void sapXepTheoTen(Node *head) {
@@ -578,18 +599,24 @@ void sapXepTheoTen(Node *head) {
             }
         }
     }
-    printf("Sap xep theo ten thanh cong\n");
+    printf(GREEN "Sap xep theo ten thanh cong\n" RESET);
 }
 
 void menu_SapXep(){
-    printf("\n1. Sap xep theo nam\n");
-    printf("2. Sap xep theo ten\n");
-    printf("0. Thoat\n");
-    printf("Nhap lua chon: ");
+    printf(CYAN
+"╔════════════════════════════════════════════════════════════╗\n"
+"║                    SAP XEP BAI BAO                         ║\n"
+"╠════════════════════════════════════════════════════════════╣\n"
+"║ 1. Sap xep theo nam                                        ║\n"
+"║ 2. Sap xep theo ten                                        ║\n"
+"║ 0. Thoat                                                   ║\n"
+"╚════════════════════════════════════════════════════════════╝\n"
+RESET);
+    printf(BLUE "Nhap lua chon: " RESET);
 }
 void menuSapXep(Node *head) {
     if (head == NULL) {
-        printf("Danh sach rong\n");
+        printf(YELLOW "Danh sach rong\n" RESET);
         getch();
         return;
     }
@@ -598,8 +625,7 @@ void menuSapXep(Node *head) {
         do{
             chon = nhapLuaChon(menu_SapXep);
             if (chon < 0 || chon > 2) {
-                printf("Lua chon khong hop le!\n");
-                printf("Nhap lua chon: ");
+                printf(RED "Lua chon khong hop le!\n" RESET);
             }
         }
         while (chon < 0 || chon > 2);
@@ -612,7 +638,7 @@ void menuSapXep(Node *head) {
 			getch();
 		}
         else if (chon == 0){
-            printf("Da thoat thanh cong!");
+            printf(CYAN "Da thoat thanh cong!" RESET);
             break;
         };
     }
@@ -628,7 +654,7 @@ void timTheoNhaXuatBan(Node *head, char nhaXuatBan[]) {
         }
         head = head->next;
     }
-    if (!ok) printf("Khong tim thay bai bao\n");
+    if (!ok) printf(RED "Khong tim thay bai bao\n" RESET);
 }
 
 void timTheoTacGia(Node *head, char tacGia[]) {
@@ -641,7 +667,7 @@ void timTheoTacGia(Node *head, char tacGia[]) {
         }
         head = head->next;
     }
-    if (!ok) printf("Khong tim thay bai bao\n");
+    if (!ok) printf(RED "Khong tim thay bai bao\n" RESET);
 }
 
 void timTheoNam(Node *head, int nam) {
@@ -654,18 +680,23 @@ void timTheoNam(Node *head, int nam) {
         }
         head = head->next;
     }
-    if (!ok) printf("Khong tim thay bai bao\n");
+    if (!ok) printf(RED "Khong tim thay bai bao\n" RESET);
 }
 
 void menu_TimKiem(){
-    printf("\n========== TIM KIEM BAI BAO ==========\n");
-    printf("\n1. Tim theo ma\n");
-    printf("2. Tim theo ten\n");
-    printf("3. Tim theo nam xuat ban\n");
-    printf("4. Tim theo nha xuat ban\n");
-    printf("5. Tim theo tac gia\n");
-    printf("0. Thoat\n");
-    printf("Nhap lua chon: ");
+    printf(CYAN
+"╔════════════════════════════════════════════════════════════╗\n"
+"║                   TIM KIEM BAI BAO                         ║\n"
+"╠════════════════════════════════════════════════════════════╣\n"
+"║ 1. Tim theo ma                                             ║\n"
+"║ 2. Tim theo ten                                            ║\n"
+"║ 3. Tim theo nam xuat ban                                   ║\n"
+"║ 4. Tim theo nha xuat ban                                   ║\n"
+"║ 5. Tim theo tac gia                                        ║\n"
+"║ 0. Thoat                                                   ║\n"
+"╚════════════════════════════════════════════════════════════╝\n"
+RESET);
+    printf(BLUE "Nhap lua chon: " RESET);
 }
 void menuTimKiem(Node *head) {
     int chon;
@@ -673,8 +704,7 @@ void menuTimKiem(Node *head) {
         do{
             chon = nhapLuaChon(menu_TimKiem);
             if (chon < 0 || chon > 5) {
-                printf("Lua chon khong hop le!\n");
-                printf("Nhap lua chon: ");
+                printf(RED "Lua chon khong hop le!\n" RESET);
             }
         }
         while (chon < 0 || chon > 5);
@@ -683,7 +713,7 @@ void menuTimKiem(Node *head) {
             nhapChuoi("Nhap ma bai bao: ", ma, sizeof(ma));
             Node *p = timTheoMa(head, ma);
             if (p == NULL) {
-                printf("Khong tim thay bai bao\n");
+                printf(RED "Khong tim thay bai bao\n" RESET);
                 getch();
             }
             else {
@@ -696,7 +726,6 @@ void menuTimKiem(Node *head) {
             char ten[256];
             nhapChuoi("Nhap ten bai bao can tim: ", ten, sizeof(ten));
             timTheoTen(head, ten);
-            getch();
         }
         else if (chon == 3) {
             int nam;
@@ -717,25 +746,30 @@ void menuTimKiem(Node *head) {
             getch();
         }
         else if (chon == 0){
-            printf("Da thoat thanh cong!");
+            printf(CYAN "Da thoat thanh cong!" RESET);
             break;
         }
 }
 }
 
 void menu() {
-    printf("\n========== QUAN LY BAI BAO KHOA HOC ==========\n");
-    printf("1.  Nhap danh sach bai bao tu file\n");
-    printf("2.  Xuat danh sach bai bao ra man hinh\n");
-    printf("3.  Them mot bai bao\n");
-    printf("4.  Xoa bai bao theo ma\n");
-    printf("5.  Tim kiem bai bao\n");
-    printf("6.  Sua thong tin bai bao\n");
-    printf("7.  Thong ke bai bao\n");
-    printf("8.  Xuat du lieu ra file\n");
-    printf("9.  Sap xep bai bao\n");
-    printf("0.  Thoat\n");
-    printf("Nhap lua chon: ");
+    printf(CYAN
+"╔════════════════════════════════════════════════════════════╗\n"
+"║            QUAN LY BAI BAO KHOA HOC                        ║\n"
+"╠════════════════════════════════════════════════════════════╣\n"
+"║  1. Nhap danh sach bai bao tu file                         ║\n"
+"║  2. Xuat danh sach bai bao ra man hinh                     ║\n"
+"║  3. Them mot bai bao                                       ║\n"
+"║  4. Xoa bai bao theo ma                                    ║\n"
+"║  5. Tim kiem bai bao                                       ║\n"
+"║  6. Sua thong tin bai bao                                  ║\n"
+"║  7. Thong ke bai bao                                       ║\n"
+"║  8. Xuat du lieu ra file                                   ║\n"
+"║  9. Sap xep bai bao                                        ║\n"
+"║  0. Thoat                                                  ║\n"
+"╚════════════════════════════════════════════════════════════╝\n"
+RESET);
+    printf(BLUE "Nhap lua chon: " RESET);
 } 
 
 int nhapLuaChon(void(*menu)()){
@@ -748,14 +782,14 @@ int nhapLuaChon(void(*menu)()){
         s[strcspn(s, "\n")] = '\0';
 
         if(s[0] == '\0'){
-            printf("Khong duoc de trong!\n");
+            printf(RED "Khong duoc de trong!\n" RESET);
             continue;
         }
 
         int i = 0;
         while(s[i]!= '\0'){
             if(!isdigit(s[i])){
-                printf("Nhap sai! Chi duoc nhap so.\n");
+                printf(RED "Nhap sai! Chi duoc nhap so.\n" RESET);
                 break;
             }
             i++;
@@ -770,6 +804,8 @@ int nhapLuaChon(void(*menu)()){
 }
 
 int main() {
+	SetConsoleOutputCP(65001);
+    SetConsoleCP(65001);
     Node *head = NULL;
     int chon;
     do {
@@ -803,10 +839,10 @@ int main() {
             menuSapXep(head);
             break;
         case 0:
-            printf("Da thoat chuong trinh!\n");
+            printf(CYAN "Da thoat chuong trinh!\n" RESET);
             break;
         default:
-            printf("Lua chon khong hop le!\n");
+            printf(RED "Lua chon khong hop le!\n" RESET);
             break;
     }
 } while (chon != 0);
