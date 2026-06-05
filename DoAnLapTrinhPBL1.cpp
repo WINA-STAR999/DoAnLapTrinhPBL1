@@ -8,10 +8,12 @@
 #define RED     "\033[1;31m"
 #define GREEN   "\033[1;32m"
 #define YELLOW  "\033[1;33m"
+#define WHITE   "\033[1;37m"
 #define BLUE    "\033[1;34m"
 #define PURPLE  "\033[1;35m"
 #define CYAN    "\033[1;36m"
 #define RESET   "\033[0m"
+#define BEIGE "\033[38;5;230m"
 typedef struct {
     char ma[50];
     char ten[256];
@@ -101,11 +103,22 @@ int demSoLuong(Node *head) {
 }
 
 void inTieuDe() {
-    printf(PURPLE "Ma        Ten bai bao            Ten tap chi         Loai       So   Tap  Nam   Nha xuat ban       Tac gia\n" RESET);
+    printf(YELLOW
+           "%-9s %-28s %-19s %-10s %-3s %-3s %-4s %-17s %-15s\n"
+           RESET,
+           "Ma",
+           "Ten bai bao",
+           "Ten tap chi",
+           "Loai",
+           "So",
+           "Tap",
+           "Nam",
+           "Nha xuat ban",
+           "Tac gia");
 }
 
 void inMotBaiBao(BaiBao x) {
-    printf(PURPLE "%-9s %-28s %-19s %-10s %-3d %-3d %-4d %-17s %-15s" RESET "\n",
+    printf(WHITE "%-9s %-28s %-19s %-10s %-3d %-3d %-4d %-17s %-15s" RESET "\n",
            x.ma, x.ten, x.tapChi, x.loai, x.soXuatBan, x.tapXuatBan, x.namXuatBan, x.nhaXuatBan, x.tacGia);
 }
 
@@ -115,7 +128,7 @@ void xuatDanhSach(Node *head) {
         getch();
         return;
     }
-    printf(PURPLE "\nDanh sach bai bao:\n" RESET);
+    printf(YELLOW "\nDanh sach bai bao:\n" RESET);
     inTieuDe();
     while (head != NULL) {
         inMotBaiBao(head->data);
@@ -219,19 +232,19 @@ void timTheoTen(Node *head, char ten[]) {
 }
 
 void menu_ChonMucSua(){
-    printf(CYAN
+    printf(PURPLE
 "╔════════════════════════════════════════════════════════════╗\n"
-"║                    SUA THONG TIN BAI BAO                   ║\n"
+"║" YELLOW "                    SUA THONG TIN BAI BAO                   " PURPLE "║\n"
 "╠════════════════════════════════════════════════════════════╣\n"
-"║ 1. Ten bai bao                                             ║\n"
-"║ 2. Ten tap chi                                             ║\n"
-"║ 3. Loai tap chi                                            ║\n"
-"║ 4. So xuat ban                                             ║\n"
-"║ 5. Tap xuat ban                                            ║\n"
-"║ 6. Nam xuat ban                                            ║\n"
-"║ 7. Nha xuat ban                                            ║\n"
-"║ 8. Tac gia                                                 ║\n"
-"║ 0. Thoat                                                   ║\n"
+"║ " WHITE "1. Ten bai bao                                             " PURPLE "║\n"
+"║ " WHITE "2. Ten tap chi                                             " PURPLE "║\n"
+"║ " WHITE "3. Loai tap chi                                            " PURPLE "║\n"
+"║ " WHITE "4. So xuat ban                                             " PURPLE "║\n"
+"║ " WHITE "5. Tap xuat ban                                            " PURPLE "║\n"
+"║ " WHITE "6. Nam xuat ban                                            " PURPLE "║\n"
+"║ " WHITE "7. Nha xuat ban                                            " PURPLE "║\n"
+"║ " WHITE "8. Tac gia                                                 " PURPLE "║\n"
+"║ " WHITE "0. Thoat                                                   " PURPLE "║\n"
 "╚════════════════════════════════════════════════════════════╝\n"
 RESET);
     printf(BLUE "Nhap lua chon: " RESET);
@@ -341,10 +354,10 @@ void thongKeTheoLoai(Node *head) {
         }
         head = head->next;
     }
-    printf(PURPLE "\nThong ke theo loai bai bao:\n" RESET);
-    printf(PURPLE "Loai               So Luong\n" RESET);
+    printf(YELLOW "\nThong ke theo loai bai bao:\n" RESET);
+    printf(YELLOW "Loai               So Luong\n" RESET);
     for (int i = 0; i < n; i++) {
-        printf(PURPLE "%-18s %d\n" RESET, ds[i].key, ds[i].count);
+        printf(WHITE "%-18s %d\n" RESET, ds[i].key, ds[i].count);
     }
 }
 
@@ -377,21 +390,21 @@ void thongKeTheoNam(Node *head) {
             }
         }
     }
-    printf(PURPLE "\nThong ke theo nam xuat ban:\n" RESET);
-    printf(PURPLE "Nam              So Luong\n" RESET);
+    printf(YELLOW "\nThong ke theo nam xuat ban:\n" RESET);
+    printf(YELLOW "Nam              So Luong\n" RESET);
     for (int i = 0; i < n; i++) {
-        printf(PURPLE "%-16d %-15d\n" RESET, ds[i].key, ds[i].count);
+        printf(WHITE "%-16d %-15d\n" RESET, ds[i].key, ds[i].count);
     }
 }
 
 void menu_ThongKe(){
-    printf(CYAN
+    printf(PURPLE
 "╔════════════════════════════════════════════════════════════╗\n"
-"║                   THONG KE BAI BAO                         ║\n"
+"║" YELLOW "                   THONG KE BAI BAO                         " PURPLE "║\n"
 "╠════════════════════════════════════════════════════════════╣\n"
-"║ 1. Thong ke theo loai                                      ║\n"
-"║ 2. Thong ke theo nam                                       ║\n"
-"║ 0. Thoat                                                   ║\n"
+"║ " WHITE "1. Thong ke theo loai                                      " PURPLE "║\n"
+"║ " WHITE "2. Thong ke theo nam                                       " PURPLE "║\n"
+"║ " WHITE "0. Thoat                                                   " PURPLE "║\n"
 "╚════════════════════════════════════════════════════════════╝\n"
 RESET);
     printf(BLUE "Nhap lua chon: " RESET);
@@ -486,14 +499,14 @@ void giaiPhong(Node **head) {
 }
 
 void menu_GiaiPhong(){
-	printf(CYAN
+	printf(PURPLE
 "╔════════════════════════════════════════════════════════════╗\n"
-"║          Danh sach hien dang co du lieu!                   ║\n"
-"║    Xoa du lieu cu truoc khi them file moi?                 ║\n"
+"║" YELLOW "          Danh sach hien dang co du lieu!                   " PURPLE "║\n"
+"║" YELLOW "    Xoa du lieu cu truoc khi them file moi?                 " PURPLE "║\n"
 "╠════════════════════════════════════════════════════════════╣\n"
-"║ 1. Co                                                      ║\n"
-"║ 2. Khong                                                   ║\n"
-"║ 0. Thoat                                                   ║\n"
+"║ " WHITE "1. Co                                                      " PURPLE "║\n"
+"║ " WHITE "2. Khong                                                   " PURPLE "║\n"
+"║ " WHITE "0. Thoat                                                   " PURPLE "║\n"
 "╚════════════════════════════════════════════════════════════╝\n"
 RESET);
 	printf(BLUE "Nhap lua chon: " RESET);
@@ -570,7 +583,7 @@ void xuatRaFile(Node *head) {
         head = head->next;
     }
     fclose(f);
-    printf(GREEN "Xuat file thanh cong\n" RESET);
+    printf(GREEN "Xuat file thanh cong!\n" RESET);
     getch();
 }
 
@@ -588,7 +601,7 @@ void sapXepTheoNam(Node *head) {
             }
         }
     }
-    printf(GREEN "Sap xep theo nam thanh cong\n" RESET);
+    printf(CYAN "Sap xep theo nam thanh cong!\n" RESET);
 }
 
 void sapXepTheoTen(Node *head) {
@@ -599,24 +612,24 @@ void sapXepTheoTen(Node *head) {
             }
         }
     }
-    printf(GREEN "Sap xep theo ten thanh cong\n" RESET);
+    printf(CYAN "Sap xep theo ten thanh cong!\n" RESET);
 }
 
 void menu_SapXep(){
-    printf(CYAN
+    printf(PURPLE
 "╔════════════════════════════════════════════════════════════╗\n"
-"║                    SAP XEP BAI BAO                         ║\n"
+"║" YELLOW "                    SAP XEP BAI BAO                         " PURPLE "║\n"
 "╠════════════════════════════════════════════════════════════╣\n"
-"║ 1. Sap xep theo nam                                        ║\n"
-"║ 2. Sap xep theo ten                                        ║\n"
-"║ 0. Thoat                                                   ║\n"
+"║ " WHITE "1. Sap xep theo nam                                        " PURPLE "║\n"
+"║ " WHITE "2. Sap xep theo ten                                        " PURPLE "║\n"
+"║ " WHITE "0. Thoat                                                   " PURPLE "║\n"
 "╚════════════════════════════════════════════════════════════╝\n"
 RESET);
     printf(BLUE "Nhap lua chon: " RESET);
 }
 void menuSapXep(Node *head) {
     if (head == NULL) {
-        printf(YELLOW "Danh sach rong\n" RESET);
+        printf(YELLOW "Danh sach rong!\n" RESET);
         getch();
         return;
     }
@@ -638,7 +651,7 @@ void menuSapXep(Node *head) {
 			getch();
 		}
         else if (chon == 0){
-            printf(CYAN "Da thoat thanh cong!" RESET);
+            printf(CYAN "Da thoat thanh cong!\n" RESET);
             break;
         };
     }
@@ -684,16 +697,16 @@ void timTheoNam(Node *head, int nam) {
 }
 
 void menu_TimKiem(){
-    printf(CYAN
+    printf(PURPLE
 "╔════════════════════════════════════════════════════════════╗\n"
-"║                   TIM KIEM BAI BAO                         ║\n"
+"║" YELLOW "                   TIM KIEM BAI BAO                         " PURPLE "║\n"
 "╠════════════════════════════════════════════════════════════╣\n"
-"║ 1. Tim theo ma                                             ║\n"
-"║ 2. Tim theo ten                                            ║\n"
-"║ 3. Tim theo nam xuat ban                                   ║\n"
-"║ 4. Tim theo nha xuat ban                                   ║\n"
-"║ 5. Tim theo tac gia                                        ║\n"
-"║ 0. Thoat                                                   ║\n"
+"║ " WHITE "1. Tim theo ma                                             " PURPLE "║\n"
+"║ " WHITE "2. Tim theo ten                                            " PURPLE "║\n"
+"║ " WHITE "3. Tim theo nam xuat ban                                   " PURPLE "║\n"
+"║ " WHITE "4. Tim theo nha xuat ban                                   " PURPLE "║\n"
+"║ " WHITE "5. Tim theo tac gia                                        " PURPLE "║\n"
+"║ " WHITE "0. Thoat                                                   " PURPLE "║\n"
 "╚════════════════════════════════════════════════════════════╝\n"
 RESET);
     printf(BLUE "Nhap lua chon: " RESET);
@@ -746,7 +759,7 @@ void menuTimKiem(Node *head) {
             getch();
         }
         else if (chon == 0){
-            printf(CYAN "Da thoat thanh cong!" RESET);
+            printf(CYAN "Da thoat thanh cong!\n" RESET);
             break;
         }
 }
@@ -755,21 +768,22 @@ void menuTimKiem(Node *head) {
 void menu() {
     printf(CYAN
 "╔════════════════════════════════════════════════════════════╗\n"
-"║            QUAN LY BAI BAO KHOA HOC                        ║\n"
+"║" YELLOW "                 QUAN LY BAI BAO KHOA HOC                 " CYAN "  ║\n"
 "╠════════════════════════════════════════════════════════════╣\n"
-"║  1. Nhap danh sach bai bao tu file                         ║\n"
-"║  2. Xuat danh sach bai bao ra man hinh                     ║\n"
-"║  3. Them mot bai bao                                       ║\n"
-"║  4. Xoa bai bao theo ma                                    ║\n"
-"║  5. Tim kiem bai bao                                       ║\n"
-"║  6. Sua thong tin bai bao                                  ║\n"
-"║  7. Thong ke bai bao                                       ║\n"
-"║  8. Xuat du lieu ra file                                   ║\n"
-"║  9. Sap xep bai bao                                        ║\n"
-"║  0. Thoat                                                  ║\n"
+"║ " WHITE "1. Nhap danh sach bai bao tu file                        " CYAN "  ║\n"
+"║ " WHITE "2. Xuat danh sach bai bao ra man hinh                    " CYAN "  ║\n"
+"║ " WHITE "3. Them mot bai bao                                      " CYAN "  ║\n"
+"║ " WHITE "4. Xoa bai bao theo ma                                   " CYAN "  ║\n"
+"║ " WHITE "5. Tim kiem bai bao                                      " CYAN "  ║\n"
+"║ " WHITE "6. Sua thong tin bai bao                                 " CYAN "  ║\n"
+"║ " WHITE "7. Thong ke bai bao                                      " CYAN "  ║\n"
+"║ " WHITE "8. Xuat du lieu ra file                                  " CYAN "  ║\n"
+"║ " WHITE "9. Sap xep bai bao                                       " CYAN "  ║\n"
+"║ " WHITE "0. Thoat                                                 " CYAN "  ║\n"
 "╚════════════════════════════════════════════════════════════╝\n"
 RESET);
-    printf(BLUE "Nhap lua chon: " RESET);
+
+printf(BLUE "Nhap lua chon: " RESET);
 } 
 
 int nhapLuaChon(void(*menu)()){
@@ -803,9 +817,27 @@ int nhapLuaChon(void(*menu)()){
     }
 }
 
+void gioiThieu() {
+    printf(BLUE
+    "╔════════════════════════════════════════════════════════════╗\n"
+    "║                                                            ║\n" // <-- thêm
+    "║" YELLOW "               DE TAI: QUAN LY BAI BAO KHOA HOC          " BLUE "   ║\n"
+    "║                                                            ║\n" // <-- thêm
+    "╠════════════════════════════════════════════════════════════╣\n"
+    "║" CYAN "                    THANH VIEN NHOM                      " BLUE "   ║\n"
+    "╠════════════════════════════════════════════════════════════╣\n"
+    "║ " WHITE "1. UNG NHO PHONG                          " GREEN "25T_DT1" BLUE "          ║\n"
+    "║ " WHITE "2. TRAN NGOC HIEU                         " GREEN "25T_DT1" BLUE "          ║\n"
+    "╚════════════════════════════════════════════════════════════╝\n"
+    RESET);
+
+    getch();
+}
+
 int main() {
 	SetConsoleOutputCP(65001);
     SetConsoleCP(65001);
+    gioiThieu();
     Node *head = NULL;
     int chon;
     do {
