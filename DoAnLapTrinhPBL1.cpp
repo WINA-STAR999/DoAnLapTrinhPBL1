@@ -644,10 +644,12 @@ void menuSapXep(Node *head) {
         while (chon < 0 || chon > 2);
         if (chon == 1) {
 			sapXepTheoNam(head);
+            xuatDanhSach(head);
 			getch();
 		}
         else if (chon == 2) {
 			sapXepTheoTen(head);
+            xuatDanhSach(head);
 			getch();
 		}
         else if (chon == 0){
@@ -726,7 +728,7 @@ void menuTimKiem(Node *head) {
             nhapChuoi("Nhap ma bai bao: ", ma, sizeof(ma));
             Node *p = timTheoMa(head, ma);
             if (p == NULL) {
-                printf(RED "Khong tim thay bai bao\n" RESET);
+                printf(RED "Khong tim thay bai bao!\n" RESET);
                 getch();
             }
             else {
@@ -820,9 +822,9 @@ int nhapLuaChon(void(*menu)()){
 void gioiThieu() {
     printf(BLUE
     "╔════════════════════════════════════════════════════════════╗\n"
-    "║                                                            ║\n" // <-- thêm
+    "║                                                            ║\n"
     "║" YELLOW "               DE TAI: QUAN LY BAI BAO KHOA HOC          " BLUE "   ║\n"
-    "║                                                            ║\n" // <-- thêm
+    "║                                                            ║\n"
     "╠════════════════════════════════════════════════════════════╣\n"
     "║" CYAN "                    THANH VIEN NHOM                      " BLUE "   ║\n"
     "╠════════════════════════════════════════════════════════════╣\n"
